@@ -3,19 +3,11 @@ import { ThemeContext } from "./contexts/ThemeContext";
 import { AuthContext } from "./contexts/AuthContext";
 
 const Navbar = props => {
-  const authContext = useContext(AuthContext);
-  const contextType = useContext(ThemeContext);
-
-  const { isLightTheme, light, dark } = contextType;
-  const { isAuthenticated, toggleAuth } = authContext;
+  const { isLightTheme, light, dark } = useContext(ThemeContext);
+  const { isAuthenticated, toggleAuth } = useContext(AuthContext);
   const theme = isLightTheme ? light : dark;
-
   return (
-    <AuthContext.Consumer>
-      {authContext => (
-        <ThemeContext.Consumer>
-          {contextType => (
-            <div style={{ background: theme.ui, color: theme.syntax }}>
+             <div style={{ background: theme.ui, color: theme.syntax }}>
               <nav>
                 <h1>Context App</h1>
                 <div onClick={toggleAuth}>
@@ -28,10 +20,6 @@ const Navbar = props => {
                 </ul>
               </nav>
             </div>
-          )}
-        </ThemeContext.Consumer>
-      )}
-    </AuthContext.Consumer>
   );
 };
 
